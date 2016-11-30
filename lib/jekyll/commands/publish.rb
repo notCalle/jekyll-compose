@@ -37,7 +37,7 @@ module Jekyll
       end
 
       def date
-        options["date"].nil? ? Date.today : Date.parse(options["date"])
+        options["date"].nil? ? DateTime.now : DateTime.parse(options["date"])
       end
 
       def name
