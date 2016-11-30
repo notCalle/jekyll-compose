@@ -59,6 +59,10 @@ module Jekyll
         date_stamp = params.date.strftime Jekyll::Compose::DEFAULT_DATESTAMP_FORMAT
         "_posts/#{date_stamp}-#{params.name}"
       end
+      
+      def iso8601
+        params.date.iso8601
+      end
     end
 
     class DraftMover < Compose::FileMover
