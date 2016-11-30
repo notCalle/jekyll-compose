@@ -39,7 +39,20 @@ module Jekyll
       end
 
       def move_file
-        FileUtils.mv(from, to)
+        case resource_type
+        when 'draft'
+          _, frontmatter, *contents = File.read(from).split("---\n")
+          yaml = YAML::load(frontmatter)
+          yaml["date"] = movement.iso8601
+          File.open(to, "w") do |file|
+            file << yaml.to_yaml
+            file << "---\n"
+            file << contents.join("---\n")
+          end
+          FileUtils.rm(from)
+        else
+          FileUtils.mv(from, to)
+        end
         Jekyll.logger.info "#{resource_type_from.capitalize} #{from} was moved to #{to}"
       end
 
