@@ -39,7 +39,7 @@ module Jekyll
       end
 
       def move_file
-        case resource_type
+        case resource_type_from
         when 'draft'
           _, frontmatter, *contents = File.read(from).split("---\n")
           yaml = YAML::load(frontmatter)
